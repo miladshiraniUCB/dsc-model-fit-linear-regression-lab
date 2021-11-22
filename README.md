@@ -1,4 +1,3 @@
-
 # Model Fit in Linear Regression - Lab
 
 ## Introduction
@@ -106,7 +105,7 @@ def stepwise_selection(X, y,
         changed=False
         # forward step
         excluded = list(set(X.columns)-set(included))
-        new_pval = pd.Series(index=excluded)
+        new_pval = pd.Series(index=excluded, dtype='float64')
         for new_column in excluded:
             model = sm.OLS(y, sm.add_constant(pd.DataFrame(X[included+[new_column]]))).fit()
             new_pval[new_column] = model.pvalues[new_column]
@@ -125,7 +124,7 @@ def stepwise_selection(X, y,
         worst_pval = pvalues.max() # null if pvalues is empty
         if worst_pval > threshold_out:
             changed=True
-            worst_feature = pvalues.argmax()
+            worst_feature = pvalues.idxmax()
             included.remove(worst_feature)
             if verbose:
                 print('Drop {:30} with p-value {:.6}'.format(worst_feature, worst_pval))
@@ -163,7 +162,7 @@ def stepwise_selection(X, y,
         changed=False
         # forward step
         excluded = list(set(X.columns)-set(included))
-        new_pval = pd.Series(index=excluded)
+        new_pval = pd.Series(index=excluded, dtype='float64')
         for new_column in excluded:
             model = sm.OLS(y, sm.add_constant(pd.DataFrame(X[included+[new_column]]))).fit()
             new_pval[new_column] = model.pvalues[new_column]
@@ -182,7 +181,7 @@ def stepwise_selection(X, y,
         worst_pval = pvalues.max() # null if pvalues is empty
         if worst_pval > threshold_out:
             changed=True
-            worst_feature = pvalues.argmax()
+            worst_feature = pvalues.idxmax()
             included.remove(worst_feature)
             if verbose:
                 print('Drop {:30} with p-value {:.6}'.format(worst_feature, worst_pval))
@@ -206,96 +205,6 @@ result = stepwise_selection(X, y, verbose = True)
 print('resulting features:')
 print(result)
 ```
-
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-
 
     Add  GrLivArea_log                  with p-value 1.59847e-243
     Add  KitchenQual_TA                 with p-value 1.56401e-67
@@ -325,17 +234,6 @@ print(result)
     Add  MSZoning_RH                    with p-value 3.95797e-05
     Add  Neighborhood_NWAmes            with p-value 0.00346099
     Drop SaleType_WD                    with p-value 0.0554448
-
-
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/ipykernel_launcher.py:46: FutureWarning: 
-    The current behaviour of 'Series.argmax' is deprecated, use 'idxmax'
-    instead.
-    The behavior of 'argmax' will be corrected to return the positional
-    maximum in the future. For now, use 'series.values.argmax' or
-    'np.argmax(np.array(values))' to get the position of the maximum
-    row.
-
-
     Add  Neighborhood_Mitchel           with p-value 0.00994666
     Drop Neighborhood_Somerst           with p-value 0.0500753
     Add  Neighborhood_SawyerW           with p-value 0.00427685
@@ -360,10 +258,6 @@ model = sm.OLS(y,X_with_intercept).fit()
 model.summary()
 ```
 
-    /Users/lore.dirick/anaconda3/lib/python3.6/site-packages/numpy/core/fromnumeric.py:2389: FutureWarning: Method .ptp is deprecated and will be removed in a future version. Use numpy.ptp instead.
-      return ptp(axis=axis, out=out, **kwargs)
-
-
 
 
 
@@ -379,10 +273,10 @@ model.summary()
   <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   269.0</td>
 </tr>
 <tr>
-  <th>Date:</th>             <td>Thu, 16 Apr 2020</td> <th>  Prob (F-statistic):</th>  <td>  0.00</td> 
+  <th>Date:</th>             <td>Mon, 22 Nov 2021</td> <th>  Prob (F-statistic):</th>  <td>  0.00</td> 
 </tr>
 <tr>
-  <th>Time:</th>                 <td>13:16:34</td>     <th>  Log-Likelihood:    </th> <td> -754.40</td>
+  <th>Time:</th>                 <td>15:34:55</td>     <th>  Log-Likelihood:    </th> <td> -754.40</td>
 </tr>
 <tr>
   <th>No. Observations:</th>      <td>  1460</td>      <th>  AIC:               </th> <td>   1565.</td>
@@ -499,7 +393,7 @@ model.summary()
 <tr>
   <th>Kurtosis:</th>      <td> 7.198</td>  <th>  Cond. No.          </th> <td>    48.7</td> 
 </tr>
-</table><br/><br/>Warnings:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</table><br/><br/>Notes:<br/>[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 
 
 
@@ -553,7 +447,7 @@ linreg.fit(X[selected_columns],y)
 
 
 
-    LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None, normalize=False)
+    LinearRegression()
 
 
 
@@ -606,7 +500,7 @@ r_squared
 
 
 
-    0.23943418177114217
+    0.23943418177114228
 
 
 
@@ -619,7 +513,7 @@ adjusted_r_squared
 
 
 
-    0.2368187559863112
+    0.2368187559863113
 
 
 
